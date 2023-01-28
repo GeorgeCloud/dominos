@@ -1,5 +1,6 @@
 import './App.css';
 import { useState } from 'react'
+import IngredientList from './IngredientList'
 
 function App() {
   const [name, setName]           = useState('');
@@ -19,29 +20,14 @@ function App() {
     <div className="App">
       <form className="pizzaForm">
         <h2>Pizza Order</h2>
+        <input
+          type="text"
+          name="name"
+          onChange={e => setName(e.target.value)}/>
 
-        <input type="text" name="name" onChange={e => setName(e.target.value)}/>
+        <IngredientList ingredAndSetters={ingredAndSetters} />
 
-        <div className="ingredientList">
-            {Object.keys(ingredAndSetters).map(ingred => {
-              const isSelected = ingredAndSetters[ingred][0]
-              const ingredSetter = ingredAndSetters[ingred][1];
-              return (
-                <div key={ingred}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      name={ingred}
-                      value={ingred}
-                      onChange={() => ingredSetter(!isSelected)}
-                    />
-                    {ingred}
-                  </label>
-                </div>
-              )
-            })}
-          <input type="submit" />
-        </div>
+        <input type="submit" />
       </form>
 
       <div className="orderReceipt">
@@ -50,14 +36,11 @@ function App() {
         <div className="orderDetails">
           <h3>{name}</h3>
 
-          {Object.keys(ingredAndSetters).map(ingred => {
-            const isIngredSelected = ingredAndSetters[ingred][0];
-            if (isIngredSelected){
-              return (
-                <p>{isIngredSelected && ingred}</p>
-              )
-            }
-          })}
+          {Object.keys(ingredAndSetters).filter(ingred => ingredAndSetters[ingred][0])
+            .map(ingred => {
+              return <p key={ingred}>{ingred}</p>
+            })
+          }
 
         </div>
       </div>
