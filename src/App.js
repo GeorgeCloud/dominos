@@ -20,7 +20,7 @@ function App() {
       <form className="pizzaForm">
         <h2>Pizza Order</h2>
 
-        <input type="text" name="name" />
+        <input type="text" name="name" onChange={e => setName(e.target.value)}/>
 
         <div className="ingredientList">
             {Object.keys(ingredAndSetters).map(ingred => {
@@ -48,12 +48,17 @@ function App() {
         <h2>Your Order</h2>
 
         <div className="orderDetails">
-          <p>George</p>
+          <h3>{name}</h3>
 
-          <p>{pepperoni && "pepperoni"}</p>
-          <p>{sausage && "sausage"}</p>
-          <p>{peppers && "peppers"}</p>
-          <p>{onions && "onions"}</p>
+          {Object.keys(ingredAndSetters).map(ingred => {
+            const isIngredSelected = ingredAndSetters[ingred][0];
+            if (isIngredSelected){
+              return (
+                <p>{isIngredSelected && ingred}</p>
+              )
+            }
+          })}
+
         </div>
       </div>
     </div>

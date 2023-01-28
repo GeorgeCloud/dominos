@@ -12,6 +12,6 @@ html {
   grid-gap: 1rem;
 }
 
-.ingredient {
-
+.orderDetails p {
+  height: 10px;
 }
